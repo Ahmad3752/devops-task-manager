@@ -1,4 +1,4 @@
-# DevOps Task Manager
+# DevOps Task Manager(CI/CD)
 
 A small, clean **Node.js + Express** web application built to practice DevOps and CI/CD. It is intentionally simple: an in-memory task list, no database, no build step. Use it as a starting point for learning Docker, Jenkins, CI/CD, and AWS deployment.
 
