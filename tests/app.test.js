@@ -53,4 +53,23 @@ describe('Tasks API', () => {
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty('error');
   });
+
+  test('DELETE /api/tasks/:id deletes a task', async () => {
+    const createRes = await request(app)
+      .post('/api/tasks')
+      .send({ title: 'Task to delete' });
+
+    const taskId = createRes.body.id;
+    const deleteRes = await request(app).delete(`/api/tasks/${taskId}`);
+    expect(deleteRes.status).toBe(204);
+
+    const getRes = await request(app).get('/api/tasks');
+    expect(getRes.body.some((task) => task.id === taskId)).toBe(false);
+  });
+
+  test('DELETE /api/tasks/:id returns 404 for non-existent task', async () => {
+    const res = await request(app).delete('/api/tasks/999');
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty('error');
+  });
 });

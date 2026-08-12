@@ -29,4 +29,16 @@ app.post('/api/tasks', (req, res) => {
   res.status(201).json(task);
 });
 
+app.delete('/api/tasks/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const index = tasks.findIndex(t => t.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: 'Task not found' });
+  }
+
+  tasks.splice(index, 1);
+  res.status(204).send();
+});
+
 module.exports = app;

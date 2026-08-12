@@ -35,10 +35,33 @@ function renderTasks(tasks) {
     id.className = 'task-id';
     id.textContent = `#${task.id}`;
 
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'delete-btn';
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.addEventListener('click', () => deleteTask(task.id));
+
     li.appendChild(title);
     li.appendChild(id);
+    li.appendChild(deleteBtn);
     taskList.appendChild(li);
   });
+}
+
+async function deleteTask(id) {
+  try {
+    const response = await fetch(`/api/tasks/${id}`, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.error || 'Failed to delete task');
+    }
+
+    await loadTasks();
+  } catch (err) {
+    showError(err.message);
+  }
 }
 
 function showError(message) {
