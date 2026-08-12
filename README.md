@@ -93,3 +93,4 @@ This app is ready to be extended for DevOps practice:
 2. **Jenkins CI** — add a pipeline that installs deps and runs `npm test`.
 3. **Jenkins CD** — deploy the tested build to a server.
 4. **AWS EC2 deployment** — run the container or app on EC2.
+5. **AWS ECR** — pushing the container to ecr 
